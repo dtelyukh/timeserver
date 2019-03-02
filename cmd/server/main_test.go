@@ -59,17 +59,16 @@ func (a AddrMock) String() string {
 func TestHandlerOK(t *testing.T) {
 	c := ConnMock{}
 	handler(c)
+	now := int32(time.Now().Unix())
 
 	var received int32
-
 	buf := bytes.NewReader(bs)
 	err := binary.Read(buf, binary.BigEndian, &received)
 	if err != nil {
 		t.Error(err)
 	}
 
-	now := int32(time.Now().Unix())
-	if now < received {
-		t.Errorf("Received time is greather than expected. Received: %d, now: %d", received, now)
+	if now != received {
+		t.Errorf("Received time is not equal now time. Received: %d, now: %d", received, now)
 	}
 }
