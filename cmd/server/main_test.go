@@ -68,9 +68,8 @@ func TestHandlerOK(t *testing.T) {
 		t.Error(err)
 	}
 
-	time.Sleep(time.Second)
 	now := int32(time.Now().Unix())
-	if now <= received {
-		t.Errorf("Received time is greather than expected. Received: %d, now (received +1 sec): %d", received, now)
+	if now < received {
+		t.Errorf("Received time is greather than expected. Received: %d, now: %d", received, now)
 	}
 }
